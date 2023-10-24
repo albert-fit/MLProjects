@@ -1,0 +1,59 @@
+ 
+ In the following code, the video does not change when currentFlight.name changes. Can you fix it so that every time the changeVideoSource() function is called, the video changes?
+
+ 
+<video
+                id="my-video" class="video-js" controls preload="auto" autoplay="true" poster="" data-setup="{}">
+                <source id="video-source" type="video/mp4" />
+                <!-- The source should be your mp4 video file that you exported when merging the .MOV files -->
+                <p class="vjs-no-js">
+                    To view this video please enable JavaScript, and consider upgrading to                                                                                                                                      a web browser that
+                    <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                </p>
+            </video>
+ 
+ <script type="module">
+ var videoSource = document.getElementById('video-source');
+
+
+            function loadVideoSource() {
+                return new Promise((resolve, reject) => {
+                    videoSource.src = `/data/F5901/${
+                        currentFlight.name
+                    }/${
+                        currentFlight.name
+                    }.mp4`;
+
+                    videoSource.addEventListener('loadeddata', () => {
+                        resolve();
+                    });
+
+                    videoSource.addEventListener('error', (error) => {
+                        reject(error);
+                    });
+                });
+            }
+
+            async function changeVideoSource() {
+                try {
+                    await loadVideoSource();
+                    videoSource.play();
+                } catch (error) {
+                    console.error('Error loading video source:', error);
+                }
+            }
+
+            changeVideoSource();
+</script>
+
+camera:
+1.948, 34.972, -2.511
+-9.694, -7.140, -8.005
+
+points
+-2.313, 2.210, -4.280
+-8.202, -0.729, -13.160
+-0.431, 0.155, 0.019
+
+-2.689, -28.716, -2.933
+8.274, 34.784, -5.017
